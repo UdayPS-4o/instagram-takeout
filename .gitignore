@@ -1,0 +1,12 @@
+# private: messages, media and exports
+accounts/
+*.zip
+demo-export/
+
+# local only
+__pycache__/
+.venv/
+.claude/
+sync_chat.py
+config.bat
+node_modules

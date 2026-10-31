@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Instagram Archive</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22%3E%3Crect x=%222.5%22 y=%222.5%22 width=%2219%22 height=%2219%22 rx=%225.5%22 fill=%22none%22 stroke=%22%23e1306c%22 stroke-width=%222%22/%3E%3Ccircle cx=%2212%22 cy=%2212%22 r=%224.4%22 fill=%22none%22 stroke=%22%23e1306c%22 stroke-width=%222%22/%3E%3C/svg%3E">
+<link rel="stylesheet" href="_archive/app.css">
+<script>try{var t=localStorage.getItem("iga-theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+</head>
+<body>
+<div id="app" class="app">
+  <nav class="rail" aria-label="Instagram">
+    <div class="rail-logo" title="Instagram Archive"><svg viewBox="0 0 24 24"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.4"/><circle cx="17.6" cy="6.4" r="1.1" class="fill"/></svg></div>
+    <div class="rail-items">
+      <a class="rail-btn" title="Home (not in archive)"><svg viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5V21h-6v-6.5H9V21H3z"/></svg></a>
+      <a class="rail-btn" title="Reels (not in archive)"><svg viewBox="0 0 24 24"><rect x="2.5" y="2.5" width="19" height="19" rx="5"/><path d="m10 8.5 5.5 3.5-5.5 3.5z"/></svg></a>
+      <a class="rail-btn active" id="rail-msgs" href="#" title="Messages"><svg viewBox="0 0 24 24"><path d="M21.5 2.5 2.5 9.8l7.2 3.1 3.2 8.6z" class="fill"/><path d="m9.7 12.9 5.6-5.4" class="cut"/></svg></a>
+      <a class="rail-btn" title="Search (not in archive)"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="7"/><path d="m16 16 5 5"/></svg></a>
+      <a class="rail-btn" title="Notifications (not in archive)"><svg viewBox="0 0 24 24"><path d="M12 20.5s-8.5-5-8.5-11A4.6 4.6 0 0 1 12 6.8a4.6 4.6 0 0 1 8.5 2.7c0 6-8.5 11-8.5 11z"/></svg></a>
+      <a class="rail-btn" title="Create (not in archive)"><svg viewBox="0 0 24 24"><path d="M12 4v16M4 12h16"/></svg></a>
+      <a class="rail-btn" id="rail-me" title="Profile"><span class="avatar xs"></span></a>
+    </div>
+    <div class="rail-bottom">
+      <a class="rail-btn" id="rail-accounts" href="../index.html?pick" title="Switch account"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.6"/><path d="M2.8 20c.6-3.6 3.1-5.6 6.2-5.6s5.6 2 6.2 5.6"/><path d="M15.5 4.6a3.4 3.4 0 0 1 0 6.6M17.6 14.6c2 .6 3.3 2.4 3.6 5.4"/></svg></a>
+      <button class="rail-btn" id="theme-btn" title="Switch appearance"><svg viewBox="0 0 24 24"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5z"/></svg></button>
+      <a class="rail-btn" title="More (not in archive)"><svg viewBox="0 0 24 24"><path d="M3.5 5h17M3.5 12h17M3.5 19h17"/></svg></a>
+    </div>
+  </nav>
+
+  <section class="inbox" id="inbox">
+    <header class="inbox-head">
+      <button class="inbox-user" id="me-name" title="Switch account"><span></span><svg viewBox="0 0 24 24" class="chev"><path d="m6.5 9.5 5.5 5.5 5.5-5.5"/></svg></button>
+      <span class="icon-btn" title="New message (not in archive)"><svg viewBox="0 0 24 24"><path d="M12.2 3.5H6a2.5 2.5 0 0 0-2.5 2.5v12A2.5 2.5 0 0 0 6 20.5h12a2.5 2.5 0 0 0 2.5-2.5v-6.2"/><path d="m10 14 .7-3.3L19.3 2a1.7 1.7 0 0 1 2.4 2.4l-8.6 8.7z"/></svg></span>
+    </header>
+    <div class="inbox-search">
+      <label class="search-box"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="7"/><path d="m16 16 5 5"/></svg><input id="inbox-q" type="search" placeholder="Search" autocomplete="off" spellcheck="false"></label>
+    </div>
+    <div class="inbox-tabs" id="inbox-tabs"><button class="tab-title on" data-box="inbox">Messages</button><button class="tab-req" data-box="requests" id="tab-req" disabled title="No message requests in the archive">Requests</button></div>
+    <div class="thread-list" id="thread-list" role="list"></div>
+  </section>
+
+  <main class="chat" id="chat">
+    <div class="empty" id="empty">
+      <div class="empty-icon"><svg viewBox="0 0 96 96"><circle cx="48" cy="48" r="46"/><path d="M69 28 26 44.5l16.5 7 7.3 19.5z"/><path d="m42.5 51.5 12.7-12.3"/></svg></div>
+      <h2>Your messages</h2>
+      <p>Pick a chat to read it from the archive.</p>
+      <button class="btn-primary" id="open-latest">Open latest chat</button>
+    </div>
+    <div class="convo" id="convo" hidden>
+      <header class="convo-head">
+        <button class="icon-btn back" id="back-btn" title="Back"><svg viewBox="0 0 24 24"><path d="M15 4.5 7.5 12l7.5 7.5"/></svg></button>
+        <button class="convo-who" id="convo-who"><span class="avatar md" id="convo-avatar"></span><span class="who-text"><b id="convo-title"></b><small id="convo-sub"></small></span></button>
+        <div class="convo-actions">
+          <button class="icon-btn" id="cal-btn" title="Jump to a date"><svg viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="16.5" rx="3"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4"/><circle cx="8" cy="14" r="1.1" class="fill"/><circle cx="12" cy="14" r="1.1" class="fill"/><circle cx="16" cy="14" r="1.1" class="fill"/><circle cx="8" cy="17.5" r="1.1" class="fill"/><circle cx="12" cy="17.5" r="1.1" class="fill"/></svg></button>
+          <button class="icon-btn" id="search-btn" title="Search in conversation"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="7"/><path d="m16 16 5 5"/></svg></button>
+          <span class="icon-btn" title="Audio call (not in archive)"><svg viewBox="0 0 24 24"><path d="M7.2 3.5 9.6 7.6 7.8 9.8a11.6 11.6 0 0 0 6.4 6.4l2.2-1.8 4.1 2.4-1 3.2c-.3.9-1.2 1.5-2.1 1.4C10 20.8 3.2 14 2.6 6.6c-.1-.9.5-1.8 1.4-2.1z"/></svg></span>
+          <span class="icon-btn" title="Video call (not in archive)"><svg viewBox="0 0 24 24"><rect x="2" y="5.5" width="13.5" height="13" rx="3"/><path d="m15.5 10.3 6.5-3.8v11l-6.5-3.8"/></svg></span>
+          <button class="icon-btn" id="info-btn" title="Conversation information"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M12 11v6"/><circle cx="12" cy="7.6" r="1.1" class="fill"/></svg></button>
+        </div>
+      </header>
+      <div class="find" id="find" hidden>
+        <label class="search-box"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="7"/><path d="m16 16 5 5"/></svg><input id="find-q" type="search" placeholder="Search in conversation" autocomplete="off" spellcheck="false"></label>
+        <span class="find-count" id="find-count"></span>
+        <button class="icon-btn sm" id="find-prev" title="Older match"><svg viewBox="0 0 24 24"><path d="m6.5 14.5 5.5-5.5 5.5 5.5"/></svg></button>
+        <button class="icon-btn sm" id="find-next" title="Newer match"><svg viewBox="0 0 24 24"><path d="m6.5 9.5 5.5 5.5 5.5-5.5"/></svg></button>
+        <button class="icon-btn sm" id="find-close" title="Close search"><svg viewBox="0 0 24 24"><path d="m5 5 14 14M19 5 5 19"/></svg></button>
+      </div>
+      <div class="find-results" id="find-results" hidden></div>
+      <div class="cal" id="cal" hidden role="dialog" aria-label="Jump to a date"></div>
+      <div class="scroll-wrap">
+        <div class="scroller" id="scroller">
+          <div class="msgs" id="msgs"></div>
+        </div>
+        <div class="scrub" id="scrub" title="Timeline of the whole chat: drag or click to jump. The scrollbar beside it scrolls the messages loaded right now."><div class="scrub-track"></div><div class="scrub-window" id="scrub-window"></div><div class="scrub-ticks" id="scrub-ticks"></div><div class="scrub-thumb" id="scrub-thumb"></div><div class="scrub-label" id="scrub-label" hidden></div></div>
+      </div>
+      <button class="to-bottom" id="to-bottom" hidden title="Jump to latest"><svg viewBox="0 0 24 24"><path d="m6.5 9.5 5.5 5.5 5.5-5.5"/></svg></button>
+      <footer class="composer">
+        <div class="composer-box" title="This is an archive — messages can't be sent">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M8 14.5s1.5 2 4 2 4-2 4-2"/><circle cx="9" cy="9.8" r="1.1" class="fill"/><circle cx="15" cy="9.8" r="1.1" class="fill"/></svg>
+          <span class="ph">Message...</span>
+          <span class="ro">Archive · read only</span>
+          <svg viewBox="0 0 24 24"><rect x="9" y="2.5" width="6" height="12" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5v4"/></svg>
+          <svg viewBox="0 0 24 24"><rect x="2.5" y="2.5" width="19" height="19" rx="4"/><circle cx="8.5" cy="8.5" r="2"/><path d="m21.5 15-5-5-11 11"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 20.5s-8.5-5-8.5-11A4.6 4.6 0 0 1 12 6.8a4.6 4.6 0 0 1 8.5 2.7c0 6-8.5 11-8.5 11z"/></svg>
+        </div>
+      </footer>
+    </div>
+  </main>
+
+  <aside class="details" id="details" hidden>
+    <header class="details-head"><b>Details</b><button class="icon-btn" id="details-close" title="Close"><svg viewBox="0 0 24 24"><path d="m5 5 14 14M19 5 5 19"/></svg></button></header>
+    <div class="details-body" id="details-body"></div>
+  </aside>
+</div>
+
+<div class="viewer" id="viewer" hidden>
+  <div class="viewer-top">
+    <div class="viewer-who" id="viewer-who"></div>
+    <div class="viewer-actions">
+      <button class="vbtn" id="viewer-goto" title="Show in chat">Show in chat</button>
+      <a class="vbtn" id="viewer-open" target="_blank" rel="noopener" title="Open the original file">Open file</a>
+      <button class="icon-btn" id="viewer-close" title="Close"><svg viewBox="0 0 24 24"><path d="m5 5 14 14M19 5 5 19"/></svg></button>
+    </div>
+  </div>
+  <button class="viewer-nav prev" id="viewer-prev" title="Previous"><svg viewBox="0 0 24 24"><path d="M15 4.5 7.5 12l7.5 7.5"/></svg></button>
+  <div class="viewer-stage" id="viewer-stage"></div>
+  <button class="viewer-nav next" id="viewer-next" title="Next"><svg viewBox="0 0 24 24"><path d="m9 4.5 7.5 7.5L9 19.5"/></svg></button>
+  <div class="viewer-count" id="viewer-count"></div>
+</div>
+
+<div class="profile" id="profile" hidden role="dialog" aria-label="Profile">
+  <header class="pf-top">
+    <button class="icon-btn" id="pf-close" title="Back to messages (Esc)"><svg viewBox="0 0 24 24"><path d="M15 4.5 7.5 12l7.5 7.5"/></svg></button>
+    <b id="pf-handle"></b>
+    <span class="pf-mini" id="pf-mini"></span>
+    <span class="pf-space"></span>
+    <span class="pf-hint">Archive</span>
+    <button class="icon-btn pf-fold" id="pf-fold" title="Hide the profile header (it also folds away when you scroll)"><svg viewBox="0 0 24 24"><path d="m6.5 14.5 5.5-5.5 5.5 5.5"/></svg></button>
+  </header>
+  <div class="pf-hero">
+    <button class="pf-avatar" id="pf-avatar"></button>
+    <div class="pf-info">
+      <h1 id="pf-user"></h1>
+      <p class="pf-name" id="pf-name"></p>
+      <div class="pf-stats" id="pf-stats"></div>
+      <p class="pf-sub" id="pf-sub"></p>
+    </div>
+  </div>
+  <nav class="pf-tabs" id="pf-tabs"></nav>
+  <div class="pf-body">
+    <section class="stories" id="stories" hidden></section>
+    <section class="people" id="people" hidden></section>
+  </div>
+</div>
+
+<div class="sv" id="sv" hidden role="dialog" aria-label="Story viewer"></div>
+
+<div class="modal" id="modal" hidden><div class="modal-card"><header><b id="modal-title"></b><button class="icon-btn" id="modal-close" title="Close"><svg viewBox="0 0 24 24"><path d="m5 5 14 14M19 5 5 19"/></svg></button></header><div id="modal-body"></div></div></div>
+
+<script src="_archive/export.js"></script>
+<script src="_archive/app.js"></script>
+<script src="_archive/data/threads.js"></script>
+</body>
+</html>
